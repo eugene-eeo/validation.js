@@ -1,6 +1,7 @@
 # validation.js
 
-An ADT that makes it simple to do data validation.
+Makes it simple to do write efficient data validation functions
+that combine errors.
 
 ```js
 function checkLength(value) {
