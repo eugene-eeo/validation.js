@@ -36,7 +36,7 @@ exposes the `Success` and `Failure` globals.
 
 ### Docs
 
-```
+```js
 var succ = Success(1);
 var fail = Failure(['err']);
 ```
@@ -44,7 +44,7 @@ var fail = Failure(['err']);
 `ok` and `err` always return the same Success/Failure objects
 for chaining.
 
-```
+```js
 succ.ok(v => console.log('ok', v))
     .err(v => console.log('err', v));
 // ok 1
@@ -60,7 +60,7 @@ Calling `then` on a Success returns the result of calling the given
 function, which is assumed to be a Success/Failure object. Calling
 `then` on an Error returns itself.
 
-```
+```ks
 succ.then(v => Success(1))
 // => Success(1)
 
@@ -72,7 +72,7 @@ fail.then(v => Success(1));
 it is the OR version of `then`. `then` short circuits on the first
 Failure, but `.ap` continues collecting. Best illustrated by example:
 
-```
+```js
 succ.ap(fail) // => fail
 fail.ap(succ) // => fail
 
