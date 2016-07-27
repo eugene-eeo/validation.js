@@ -1,5 +1,7 @@
 # validation.js
 
+[![Build Status](https://travis-ci.org/eugene-eeo/validation.js.svg?branch=master)](https://travis-ci.org/eugene-eeo/validation.js)
+
 Makes it simple to do write efficient data validation functions
 that combine errors.
 
