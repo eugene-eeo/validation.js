@@ -8,11 +8,11 @@ data validation functions that combine errors.
 ```js
 function validate(username) {
     return Success()
-        .ap(/^[a-z0-9\-]+$/.test(value)
-            ? Success(value)
+        .ap(/^[a-z0-9\-]+$/.test(username)
+            ? Success(username)
             : Failure(['only a-z, 0-9, and - allowed']))
         .ap(username.length >= 6
-            ? Success(value)
+            ? Success(username)
             : Failure(['length must be >= 6']));
 }
 
