@@ -36,8 +36,8 @@ describe('Success', function() {
     var S2 = Success(2);
     var F1 = Failure(['error']);
 
-    assert(S1.ap(S2) === S2);
-    assert(S2.ap(S1) === S1);
+    assert(S1.ap(S2) === S1);
+    assert(S2.ap(S1) === S2);
     assert(S1.ap(F1) === F1);
     assert(S2.ap(F1) === F1);
   });

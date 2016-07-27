@@ -8,7 +8,11 @@
     ok:   function(fn) { fn(this.value); return this; },
     err:  function(fn) { return this; },
     then: function(fn) { return fn(this.value); },
-    ap:   function(obj) { return obj; },
+    ap:   function(obj) {
+      return obj.isFailure
+        ? obj
+        : this;
+    },
   };
 
   function failure(value) {
