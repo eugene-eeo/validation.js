@@ -1,0 +1,11 @@
+{
+  "license": "MIT",
+  "repository": "https://github.com/eugene-eeo/validation.js",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.5.3"
+  },
+  "scripts": {
+    "test": "node_modules/.bin/mocha"
+  }
+}
