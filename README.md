@@ -76,3 +76,10 @@ succ.ap(fail)
     .ap(Success(2))
 // => Failure(['err', 'err2'])
 ```
+
+You can inspect the `isFailure` attributes as well:
+
+```js
+succ.isFailure // => false
+fail.isFailure // => true
+```
