@@ -28,11 +28,13 @@ describe('Success', function() {
 
   it('.then calls the function', function() {
     var called;
-    assert(Success(1).then(a => {
+    var obj = {};
+    var rv = Success(1).then(a => {
       called = true;
-      return a;
-    }) === 1);
+      return obj;
+    });
     assert(called);
+    assert(rv === obj);
   });
 
   it('.ap works as expected', function() {
