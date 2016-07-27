@@ -1,4 +1,4 @@
-!function(window) {
+!function(exports) {
   function success(value) {
     this.value = value;
     this.isFailure = false;
@@ -31,6 +31,10 @@
     }
   };
 
-  window.Success = function(v) { return new success(v); }
-  window.Failure = function(v) { return new failure(v); }
-}(window);
+  exports.Success = function(v) { return new success(v); }
+  exports.Failure = function(v) { return new failure(v); }
+}(
+  typeof module !== 'undefined'
+    ? module.exports
+    : window
+);
