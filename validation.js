@@ -1,10 +1,10 @@
 !function(exports) {
   function success(value) {
     this.value = value;
-    this.isFailure = false;
   }
 
   success.prototype = {
+    isFailure: false,
     ok:   function(fn) { fn(this.value); return this; },
     err:  function(fn) { return this; },
     then: function(fn) { return fn(this.value); },
@@ -13,10 +13,10 @@
 
   function failure(value) {
     this.value = value;
-    this.isFailure = true;
   }
 
   failure.prototype = {
+    isFailure: true,
     ok:   function(fn) { return this; },
     err:  function(fn) { fn(this.value); return this; },
     then: function(fn) { return this; },
