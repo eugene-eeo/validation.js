@@ -4,7 +4,8 @@
 
 Browser-only library that makes it simple to do write efficient
 data validation functions that combine errors. Read the [docs](docs/API.md)
-or look at some [examples](docs/examples.js).
+or look at some [examples](docs/examples.js). Works great with
+[form-to-obj](https://github.com/chrisdavies/form-to-obj).
 
 ```js
 function validate(username) {
@@ -22,7 +23,7 @@ validate('@onetwo') // => Failure(['only...'])
 validate('perfect') // => Success('perfect')
 ```
 
-### Install
+## Installation
 
-Drop `validation.js` anywhere and incldue it in your HTML. It
+Drop `validation.js` anywhere and include it a script tag. It
 exposes the `Success` and `Failure` globals.
