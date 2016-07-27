@@ -6,6 +6,10 @@ var Failure = V.Failure;
 
 
 describe('Success', function() {
+  it('.isFailure is false', function() {
+    assert(!Success(1).isFailure);
+  });
+
   it('.ok calls the function and returns itself', function() {
     var called;
     var itself = Success(1);
