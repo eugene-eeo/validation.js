@@ -31,8 +31,8 @@
     }
   };
 
-  exports.Success = function(v) { return new success(v); }
-  exports.Failure = function(v) { return new failure(v); }
+  exports.Success = function(v) { return new success(v); };
+  exports.Failure = function(v) { return new failure(v); };
 }(
   typeof module !== 'undefined'
     ? module.exports
