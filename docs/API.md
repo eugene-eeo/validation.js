@@ -50,9 +50,12 @@ succ.ap(fail)
 // => Failure(['err', 'err2'])
 ```
 
-You can inspect the `isFailure` attributes as well:
+You can inspect the `isFailure` and `value` attributes as well:
 
 ```js
 succ.isFailure // => false
 fail.isFailure // => true
+
+console.log(succ.value) // 1
+console.log(fail.value) // ['err']
 ```
