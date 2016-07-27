@@ -6,22 +6,14 @@ Browser-only library that makes it simple to do write efficient
 data validation functions that combine errors.
 
 ```js
-function checkLength(value) {
-    return value >= 6
-        ? Success(value)
-        : Failure(['length must be >= 6']);
-}
-
-function checkSymbols(value) {
-    return /^[a-z0-9\-]+$/.test(value)
-        ? Success(value)
-        : Failure(['only a-z, 0-9, and - allowed']);
-}
-
 function validate(username) {
-    return Success(username)
-        .ap(checkSymbols(username))
-        .ap(checkLength(username.length));
+    return Success()
+        .ap(/^[a-z0-9\-]+$/.test(value)
+            ? Success(value)
+            : Failure(['only a-z, 0-9, and - allowed']))
+        .ap(username.length >= 6
+            ? Success(value)
+            : Failure(['length must be >= 6']));
 }
 
 validate('#imp')    // => Failure(['length...', 'only...'])
@@ -60,7 +52,7 @@ Calling `then` on a Success returns the result of calling the given
 function, which is assumed to be a Success/Failure object. Calling
 `then` on an Error returns itself.
 
-```ks
+```js
 succ.then(v => Success(1))
 // => Success(1)
 
