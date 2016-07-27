@@ -22,7 +22,7 @@
     then: function(fn) { return this; },
     ap:   function(obj) {
       return obj.isFailure
-        ? Failure(this.value.concat(obj.value))
+        ? new failure(this.value.concat(obj.value))
         : this;
     }
   };
