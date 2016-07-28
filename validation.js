@@ -35,7 +35,7 @@ var dv = (function() {
     },
   };
 
-  function combine(value, fs) {
+  function collect(value, fs) {
     return Success(value)
       .ap(fs.reduce(function(prev, curr) {
           if (!prev) return curr;
@@ -52,7 +52,7 @@ var dv = (function() {
   return {
     Success: Success,
     Failure: Failure,
-    combine: combine,
+    collect: collect,
     check: check,
   };
 })();

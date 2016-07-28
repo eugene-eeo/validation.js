@@ -17,9 +17,9 @@ test('dv.check(false, err)', function(t) {
   t.end();
 });
 
-test('dv.combine(Success...)', function(t) {
+test('dv.collect(Success...)', function(t) {
   var obj = {};
-  var rv = dv.combine(obj, [
+  var rv = dv.collect(obj, [
     dv.check(true, 'e1'),
     dv.check(true, 'e2'),
     dv.check(true, 'e3'),
@@ -30,8 +30,8 @@ test('dv.combine(Success...)', function(t) {
   t.end();
 });
 
-test('dv.combine(Failure...)', function(t) {
-  var rv = dv.combine(1, [
+test('dv.collect(Failure...)', function(t) {
+  var rv = dv.collect(1, [
     dv.check(true,  'e1'),
     dv.check(false, 'e2'),
     dv.check(false, 'e3'),

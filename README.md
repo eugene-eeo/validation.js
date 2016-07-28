@@ -9,7 +9,7 @@ validation functions that combine errors. Works great with
 
 ```js
 function validate(username) {
-    return dv.combine(username, [
+    return dv.collect(username, [
         dv.check(username.length >= 6, 'length ...'),
         dv.check(/\W/.test(username),  'only...'),
     ]);
