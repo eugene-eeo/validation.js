@@ -1,50 +1,72 @@
-var V = require('../validation.js');
-var assert = require('chai').assert;
+var test = require('tape');
+var {Success, Failure} = require('../validation.js');
 
-var Success = V.Success;
-var Failure = V.Failure;
+test('Success.isFailure', function(t) {
+  t.equal(Success(1).isFailure, false);
+  t.end();
+});
 
+test('Success.ok', function(t) {
+  t.plan(2);
+  var s = Success(1);
+  var rv = s.ok(v => {
+    t.equal(v, 1);
+  });
+  t.equal(rv, s);
+  t.end();
+});
 
-describe('Success', function() {
-  it('.isFailure is false', function() {
-    assert(!Success(1).isFailure);
+test('Success.err', function(t) {
+  var s = Success(1);
+  var rv = s.err(v => {
+    t.fail('function should not be called');
+  });
+  t.equal(rv, s);
+  t.end();
+});
+
+test('Success.then(failure)', function(t) {
+  t.plan(2);
+
+  var s = Success(1);
+  var f = Failure(['err']);
+  var rv = s.then(v => {
+    t.equal(v, 1);
+    return f;
   });
 
-  it('.ok calls the function and returns itself', function() {
-    var called;
-    var itself = Success(1);
-    var rv = itself.ok(value => {
-      assert(value === 1);
-      called = true;
-    });
-    assert(called);
-    assert(rv === itself);
+  t.equal(rv, f);
+  t.end();
+});
+
+test('Success.then(success)', function(t) {
+  t.plan(2);
+
+  var s1 = Success(1);
+  var s2 = Success(2);
+  var rv = s1.then(v => {
+    t.equal(v, 1);
+    return s2;
   });
 
-  it('.err does not call the function and returns itself', function() {
-    var itself = Success(1);
-    assert(itself.err(() => assert(false)) === itself);
-  });
+  t.equal(rv, s2);
+  t.end();
+});
 
-  it('.then calls the function', function() {
-    var called;
-    var obj = {};
-    var rv = Success(1).then(a => {
-      called = true;
-      return obj;
-    });
-    assert(called);
-    assert(rv === obj);
-  });
+test('Success.ap(success)', function(t) {
+  var s1 = Success(1);
+  var s2 = Success(2);
+  var rv = s1.ap(s2);
 
-  it('.ap works as expected', function() {
-    var S1 = Success(1);
-    var S2 = Success(2);
-    var F1 = Failure(['error']);
+  t.equal(rv, s1);
+  t.end();
+});
 
-    assert(S1.ap(S2) === S1);
-    assert(S2.ap(S1) === S2);
-    assert(S1.ap(F1) === F1);
-    assert(S2.ap(F1) === F1);
-  });
+test('Success.ap(failure)', function(t) {
+  var s1 = Success(1);
+  var f1 = Failure(['err']);
+  var rv = s1.ap(f1);
+
+  t.equal(rv, f1);
+  t.end();
 });

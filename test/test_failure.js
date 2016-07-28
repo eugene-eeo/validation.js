@@ -1,51 +1,55 @@
-var V = require('../validation.js');
-var assert = require('chai').assert;
+var test = require('tape');
+var {Success, Failure} = require('../validation.js');
 
-var Success = V.Success;
-var Failure = V.Failure;
+test('Failure.isFailure', function(t) {
+  t.equal(Failure(['err']).isFailure, true);
+  t.end();
+});
 
-
-describe('Failure', function() {
-  it('.isFailure is true', function() {
-    assert(Failure([]).isFailure);
+test('Failure.ok', function(t) {
+  var f = Failure(['err']);
+  var rv = f.ok(v => {
+    t.fail('function should not be called');
   });
+  t.equal(rv, f);
+  t.end();
+});
 
-  it('.ok does not call the function and returns itself', function() {
-    var itself = Failure(1);
-    var rv = itself.ok(value => {
-      assert(false);
-    });
-    assert(rv === itself);
+test('Failure.err', function(t) {
+  t.plan(2);
+
+  var err = ['err'];
+  var f   = Failure(err);
+  var rv  = f.err(v => {
+    t.equal(v, err);
   });
+  t.equal(rv, f);
+  t.end();
+});
 
-  it('.err does not call the function and returns itself', function() {
-    var err = ['error'];
-    var itself = Failure(err);
-    var called;
-
-    var rv = itself.err(value => {
-      called = true;
-      assert(value === err);
-    });
-
-    assert(called);
-    assert(rv === itself);
+test('Failure.then', function(t) {
+  var f = Failure(['err']);
+  var rv = f.then(v => {
+    t.fail('function should not be called');
   });
+  t.equal(rv, f);
+  t.end();
+});
 
-  it('.then does not call the function and returns itself', function() {
-    var itself = Failure([]);
-    assert(itself.then(a => assert(false)) === itself);
-  });
+test('Failure.ap(success)', function(t) {
+  var f1 = Failure(['err']);
+  var s1 = Success(1);
+  var rv = f1.ap(s1);
 
-  it('.ap works as expected', function() {
-    var F1 = Failure(['e1']);
-    var F2 = Failure(['e2']);
-    var S1 = Success(1);
-    var S2 = Success(2);
+  t.equal(rv, f1);
+  t.end();
+});
 
-    assert.deepEqual(F1.ap(F2), Failure(['e1', 'e2']));
-    assert.deepEqual(F2.ap(F1), Failure(['e2', 'e1']));
-    assert(F1.ap(S1) === F1);
-    assert(F1.ap(S2) === F1);
-  });
+test('Failure.ap(failure)', function(t) {
+  var f1 = Failure(['e1']);
+  var f2 = Failure(['e2']);
+  var rv = f1.ap(f2);
+
+  t.deepEqual(rv, Failure(['e1', 'e2']));
+  t.end();
 });
