@@ -18,3 +18,5 @@ validate('#s')      // => fail.of(['length', 'symbol'])
 validate('@handle') // => fail.of(['symbol'])
 validate('perfect') // => ok('perfect')
 ```
+
+[![Build Status](https://travis-ci.org/eugene-eeo/validation.js.svg?branch=master)](https://travis-ci.org/eugene-eeo/validation.js)
