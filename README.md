@@ -10,12 +10,8 @@ validation functions that combine errors. Works great with
 ```js
 function validate(username) {
     return Success(username)
-        .ap(/^[a-z0-9\-]+$/.test(username)
-            ? Success(username)
-            : Failure(['only a-z, 0-9, and - allowed']))
-        .ap(username.length >= 6
-            ? Success(username)
-            : Failure(['length must be >= 6']));
+        .ap(checkSymbols(username))
+        .ap(checkLength(username));
 }
 
 validate('#imp')    // => Failure(['length...', 'only...'])
@@ -23,7 +19,7 @@ validate('@onetwo') // => Failure(['only...'])
 validate('perfect') // => Success('perfect')
 ```
 
-## Installation
+### Installation
 
 Drop `validation.js` anywhere and include it a script tag. It
 exposes the `Success` and `Failure` globals.
