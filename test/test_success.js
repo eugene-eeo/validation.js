@@ -25,31 +25,27 @@ test('Success.err', function(t) {
   t.end();
 });
 
-test('Success.then(failure)', function(t) {
+test('Success.then', function(t) {
   t.plan(2);
 
   var s = Success(1);
-  var f = Failure(['err']);
+  var a = Success(2);
   var rv = s.then(v => {
     t.equal(v, 1);
-    return f;
+    return a;
   });
 
-  t.equal(rv, f);
+  t.equal(rv, a);
   t.end();
 });
 
-test('Success.then(success)', function(t) {
-  t.plan(2);
-
-  var s1 = Success(1);
-  var s2 = Success(2);
-  var rv = s1.then(v => {
-    t.equal(v, 1);
-    return s2;
+test('Success.fmap', function(t) {
+  var s = Success(1);
+  var rv = s.fmap(v => {
+    t.fail('function should not be called');
   });
 
-  t.equal(rv, s2);
+  t.equal(rv, s);
   t.end();
 });
 

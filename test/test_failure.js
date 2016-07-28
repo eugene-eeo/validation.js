@@ -36,6 +36,21 @@ test('Failure.then', function(t) {
   t.end();
 });
 
+test('Failure.fmap', function(t) {
+  t.plan(2);
+
+  var e = ['err'];
+  var s = {};
+  var f = Failure(e);
+  var rv = f.fmap(v => {
+    t.equal(v, e);
+    return s;
+  });
+
+  t.equal(rv, s);
+  t.end();
+});
+
 test('Failure.ap(success)', function(t) {
   var f1 = Failure(['err']);
   var s1 = Success(1);
