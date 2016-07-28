@@ -6,6 +6,6 @@
     "tape": "^4.6.0"
   },
   "scripts": {
-    "test": "tape './test/*.js' | tap-dot"
+    "test": "tape './tests/*.js' | tap-dot"
   }
 }
