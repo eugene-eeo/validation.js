@@ -1,9 +1,10 @@
-!function(exports) {
-  function success(value) {
+var dv = (function() {
+  function Success(value) {
+    if (!(this instanceof Success)) return new Success(value);
     this.value = value;
   }
 
-  success.prototype = {
+  Success.prototype = {
     isFailure: false,
     ok:   function(fn) { fn(this.value); return this; },
     err:  function(fn) { return this; },
@@ -16,11 +17,12 @@
     },
   };
 
-  function failure(value) {
+  function Failure(value) {
+    if (!(this instanceof Failure)) return new Failure(value);
     this.value = value;
   }
 
-  failure.prototype = {
+  Failure.prototype = {
     isFailure: true,
     ok:   function(fn) { return this; },
     err:  function(fn) { fn(this.value); return this; },
@@ -28,15 +30,33 @@
     fmap: function(fn) { return fn(this.value); },
     ap:   function(obj) {
       return obj.isFailure
-        ? new failure(this.value.concat(obj.value))
+        ? Failure(this.value.concat(obj.value))
         : this;
     },
   };
 
-  exports.Success = function(v) { return new success(v); };
-  exports.Failure = function(v) { return new failure(v); };
-}(
-  typeof module !== 'undefined'
-    ? module.exports
-    : window
-);
+  function combine(value, fs) {
+    return Success(value)
+      .ap(fs.reduce(function(prev, curr) {
+          if (!prev) return curr;
+          return prev.ap(curr);
+        }));
+  }
+
+  function check(cond, err) {
+    return cond
+      ? Success()
+      : Failure([err]);
+  }
+
+  return {
+    Success: Success,
+    Failure: Failure,
+    combine: combine,
+    check: check,
+  };
+})();
+
+if (typeof module !== 'undefined' && module.exports) {
+  module.exports = dv;
+}
