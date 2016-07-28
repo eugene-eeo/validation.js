@@ -2,10 +2,12 @@
   "license": "MIT",
   "repository": "https://github.com/eugene-eeo/validation.js",
   "devDependencies": {
+    "browserify": "^13.1.0",
     "tap-dot": "^1.0.5",
     "tape": "^4.6.0"
   },
   "scripts": {
-    "test": "tape './tests/*.js' | tap-dot"
+    "test": "tape './tests/*.js' | tap-dot",
+    "build": "browserify ./validation.js --standalone=dv > validation.browser.js"
   }
 }
