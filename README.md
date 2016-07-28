@@ -15,8 +15,8 @@ function validate(username) {
     ]);
 }
 
-validate('#s')      // => fail.of(['length', 'symbol'])
-validate('@handle') // => fail.of(['symbol'])
+validate('#s')      // => fail.of(['length', 'symbols'])
+validate('@handle') // => fail.of(['symbols'])
 validate('perfect') // => ok('perfect')
 ```
 
