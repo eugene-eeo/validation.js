@@ -56,12 +56,12 @@ f.ap(ok(1))
 // => fail.of(['err', 'err2', 'err3'])
 ```
 
-`collect` is the 'convenient' version of `.ap`. For instance
+`combine` is the 'convenient' version of `.ap`. For instance
 the following are equivalent:
 
 ```js
 ok(1).ap(A).ap(B)
-collect(1, [A, B])
+combine(1, [A, B])
 ```
 
 `check(v, err)` returns `ok(v)` if the `v` is truthy, else it
@@ -72,7 +72,7 @@ check('@'.length >= 10, 'length...')
 // => fail('length...')
 ```
 
-`chain`'s relation to `.then` is similar to how `collect` is
+`chain`'s relation to `.then` is similar to how `combine` is
 to `.ap`. For instance the following are equivalent:
 
 ```js

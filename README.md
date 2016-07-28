@@ -9,9 +9,9 @@ script tag in your HTML.
 
 ```js
 function validate(username) {
-    return dv.collect(username, [
-        dv.check(username.length >= 6 ? dv.ok() : dv.fail('length')),
-        dv.check(!/^[\W]$/.test(username) ? dv.ok : dv.fail('symbols')),
+    return dv.combine(username, [
+        dv.check(username.length >= 6, 'length'),
+        dv.check(/^[a-z]+$/.test(username), 'symbols'),
     ]);
 }
 
