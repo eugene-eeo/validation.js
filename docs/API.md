@@ -5,8 +5,8 @@ var succ = Success(1)
 var fail = Failure(['err'])
 ```
 
-`ok` and `err` always return the same Success/Failure objects
-for chaining.
+`ok` and `err` calls the supplied functions, and always return the same
+Success/Failure objects for chaining.
 
 ```js
 succ.ok(v => console.log('ok', v))
