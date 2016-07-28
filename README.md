@@ -14,7 +14,7 @@ function validate(username) {
         .ap(checkLength(username));
 }
 
-validate('#imp')    // => Failure(['length...', 'only...'])
+validate('#imp')    // => Failure(['only...', 'length...'])
 validate('@onetwo') // => Failure(['only...'])
 validate('perfect') // => Success('perfect')
 ```
