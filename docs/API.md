@@ -38,6 +38,16 @@ succ.then(v => (v >= 1 ? Success(v) : Failure(['err'])))
     .then(/* ... */)
 ```
 
+`.fmap` is the opposite of `then`:
+
+```js
+succ.fmap(v => Success(1))
+// => succ
+
+fail.fmap(v => Success(1))
+// => Success(1)
+```
+
 `.ap` can be thought of as the non short-circuiting version of
 `.then`. Whereas `.then` stops executing functions on the first
 Error object, `.ap` will continue collecting Failure messages.
