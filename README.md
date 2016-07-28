@@ -1,10 +1,11 @@
 # 🌿 validation.js
 
-Browser-side JS library for easily writing pure data validation
-functions that aggregate errors. Works great with [form-to-obj](https://github.com/chrisdavies/form-to-obj).
-Read the [guide](docs/guide.md), or get started by just dropping
-`validation.browser.js` anywhere and add a script tag in
-your HTML.
+Browser-side JS library for easily writing pure, testable data
+validation functions that aggregate errors. Works great with the
+[form-to-obj](https://github.com/chrisdavies/form-to-obj)
+micro-library. Read the [guide](docs/guide.md), or get started
+just by dropping `validation.browser.js` anywhere and add a
+script tag in your HTML.
 
 ```js
 function validate(username) {
