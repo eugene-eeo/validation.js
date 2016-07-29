@@ -1,4 +1,4 @@
-## Guide
+# Guide
 
 The main component of the library is the `ok` and `fail` objects.
 `ok` allows you to pass on a value to the next validator to ensure
@@ -45,3 +45,48 @@ Methods and attributes of both `ok` and `fail` objects:
     fail('err').ap(fail('err2')) // => fail.of(['err', 'err2'])
     fail('err').ap(ok(1))        // => fail('err')
     ```
+
+## Convenience functions
+
+### `first(value, fn)`
+
+Arguments:
+
+ - `value`: can be anything.
+ - `fn`: function that accepts two values, a checking function and
+ the same `value` passed to `first`.
+
+Fails fast on the first invalidation. Example:
+
+```js
+dv.first(-1, function(check, d) {
+    check(d > 0, 'must be greater than zero!');
+    // not executed
+    check(d < 5, 'must be lesser than 5!');
+})
+// => fail('must be greater than zero!')
+```
+
+
+### `combine(value, xs)`
+
+Arguments:
+
+ - `value`: can be anything.
+ - `xs`: array of `ok` or `fail` objects.
+
+Best explained by example:
+
+```js
+dv.combine(1, [ok(2)]) // => ok(1)
+dv.combine(1, [
+    fail('err1'),
+    fail('err2'),
+    ok(2),
+]);
+// => fail.of(['err1', 'err2'])
+```
+
+### `check(v, message)`
+
+Returns `ok(v)` if `v` is truthy, else returns `fail(message)`.
