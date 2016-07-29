@@ -46,15 +46,17 @@ var dv = (function() {
       : fail(err);
   }
 
-  function chain(v, xs) {
-    var curr = ok(v);
-    for (var i = 0; i < xs.length; i++) {
-      var fn = xs[i];
-      curr = curr.then(fn);
-      if (!curr.isOk)
-        break;
+  function first(datum, fn) {
+    function check(v, err) {
+      if (!v) throw { name: 'HerbError', message: err };
     }
-    return curr;
+    try {
+      fn(check, datum);
+      return ok(datum);
+    }  catch (e) {
+      if (e.name !== 'HerbError') throw e;
+      return fail(e.message);
+    }
   }
 
   return {
@@ -62,7 +64,7 @@ var dv = (function() {
     fail: fail,
     combine: combine,
     check: check,
-    chain: chain,
+    first: first,
   };
 })();
 
