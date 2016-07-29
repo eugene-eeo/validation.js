@@ -4,8 +4,8 @@ Browser-side JS library for easily writing pure, testable data
 validation functions that aggregate errors. Works great with the
 [form-to-obj](https://github.com/chrisdavies/form-to-obj)
 micro-library. Read the [guide](docs/guide.md), or get started
-just by dropping `validation.browser.js` anywhere and add a
-script tag in your HTML.
+just by dropping `validation.js` anywhere and add a script tag
+in your HTML. It exposes the `dv` global.
 
 ```js
 function validate(username) {
