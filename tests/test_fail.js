@@ -9,7 +9,7 @@ test('fail.isOk', function(t) {
 test('fail.of', function(t) {
   var arr = [1,2,3];
   var f1  = fail.of(arr);
-  t.equal(f1.val, arr);
+  t.equal(f1.value, arr);
   t.end();
 });
 

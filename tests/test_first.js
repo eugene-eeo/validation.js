@@ -1,32 +1,24 @@
 var test = require('tape');
-var dv = require('../validation');
+var {first, ok, fail} = require('../validation');
 
-test('dv.first with error', function(t) {
-  t.plan(2);
 
-  var obj = {};
-  var rv = dv.first(obj, function(check, d) {
-    t.equal(d, obj);
-    check(true,  'not-shown');
-    check(false, 'message');
-    t.fail();
-  });
-
-  t.deepEqual(rv, dv.fail('message'));
+test('first (all ok)', function(t) {
+  var rv = first(1, [
+    v => ok(v),
+    v => ok(v+1),
+    v => ok(v+2),
+  ]);
+  t.deepEqual(rv, ok(4));
   t.end();
 });
 
-test('dv.first without error', function(t) {
-  t.plan(3);
 
-  var obj = {};
-  var rv = dv.first(obj, function(check, d) {
-    check(true, 'err1');
-    t.ok(true);
-    check(true, 'err2');
-    t.ok(true);
-  });
-
-  t.deepEqual(rv, dv.ok(obj));
+test('first (with fail)', function(t) {
+  var rv = first(1, [
+    v => ok(v),
+    v => fail('fail'),
+    v => t.fail(),
+  ]);
+  t.deepEqual(rv, fail('fail'));
   t.end();
 });
