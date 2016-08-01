@@ -6,7 +6,7 @@ var dv = (function() {
 
   ok.prototype = {
     isOk: true,
-    then: function(f) { return f(this.value); },
+    then: function(f) { return ok(f(this.value)); },
     fmap: function(f) { return this; },
     ap:   function(o) { return o.isOk ? this : o; },
   };
@@ -25,7 +25,7 @@ var dv = (function() {
   fail.prototype = {
     isOk: false,
     then: function(f) { return this; },
-    fmap: function(f) { return f(this.value); },
+    fmap: function(f) { return fail.of(this.value.map(f)); },
     ap:   function(o) {
       return o.isOk
         ? this
@@ -49,7 +49,7 @@ var dv = (function() {
     var u = ok(datum);
     for (var i = 0; i < xs.length; i++) {
       var fn = xs[i];
-      u = u.then(fn);
+      u = fn(u.value);
       if (!u.isOk) break;
     }
     return u;

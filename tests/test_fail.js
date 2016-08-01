@@ -24,17 +24,10 @@ test('fail.then', function(t) {
 });
 
 test('fail.fmap', function(t) {
-  t.plan(2);
+  var f1 = fail('err');
+  var rv = f1.fmap(v => [v]);
 
-  var obj = {};
-  var err = 1;
-  var f1 = fail(err);
-  var rv = f1.fmap(v => {
-    t.deepEqual(v, [err]);
-    return obj;
-  });
-
-  t.equal(rv, obj);
+  t.deepEqual(rv, fail.of([['err']]));
   t.end();
 });
 
