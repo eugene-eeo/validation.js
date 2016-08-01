@@ -64,6 +64,6 @@ var dv = (function() {
   };
 })();
 
-if (typeof module.exports !== 'undefined') {
+if (typeof module !== 'undefined') {
   module.exports = dv;
 }
