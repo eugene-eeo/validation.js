@@ -31,9 +31,10 @@ Methods and attributes of both `ok` and `fail` objects:
  - `.isOk` - returns true if the object is an `ok`, else returns false.
  - `value` - internal value of the object. For `ok` it is the value which
  was passed to it during construction, For `fail` it is an array.
- - `.then(fn)` - calls `fn` with the internal value and wraps the
- return value in `ok`, if it is called on an `ok` object. For `fail`
- objects this method does nothing and returns itself.
+ - `.then(fn)` - calls `fn` with the internal value and returns the result
+ if it is called on an `ok` object. For `fail` objects this method does
+ nothing and returns itself. Usually you want to return `ok` or `fail`
+ objects in the `fn`.
  - `.fmap(fn)` - reads as 'failure-map'. When called on `ok` it just
  returns itself. When called on a `fail` it is equivalent to the following:
 

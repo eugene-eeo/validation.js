@@ -7,7 +7,7 @@ test('ok.isOk', function(t) {
 });
 
 test('ok.then', function(t) {
-  t.plan(3);
+  t.plan(2);
 
   var obj = {};
   var succ = ok(1);
@@ -16,8 +16,7 @@ test('ok.then', function(t) {
     return obj;
   });
 
-  t.ok(rv.isOk);
-  t.equal(rv.value, obj);
+  t.equal(rv, obj);
   t.end();
 });
 
