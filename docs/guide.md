@@ -29,13 +29,19 @@ fail.of([err1, err2])
 Methods and attributes of both `ok` and `fail` objects:
 
  - `.isOk` - returns true if the object is an `ok`, else returns false.
- - `.then(fn)` - calls `fn` with the internal value and returns the
- return value, if it is called on an `ok` object. For `fail` objects
- this method does nothing and returns itself. Usually you want to
- return either `fail` or `ok` objects from the function.
- - `.fmap(fn)` - reads as 'failure-map'. Same behaviour as `.then(fn)`
- but this only calls the function when the method is called on a `fail`
- object.
+ - `value` - internal value of the object. For `ok` it is the value which
+ was passed to it during construction, For `fail` it is an array.
+ - `.then(fn)` - calls `fn` with the internal value and wraps the
+ return value in `ok`, if it is called on an `ok` object. For `fail`
+ objects this method does nothing and returns itself.
+ - `.fmap(fn)` - reads as 'failure-map'. When called on `ok` it just
+ returns itself. When called on a `fail` it is equivalent to the following:
+
+    ```js
+    var r = fail('err');
+    fail.of(r.value.map(fn));
+    ```
+
  - `.ap(obj)` - best explained by example:
 
     ```js
