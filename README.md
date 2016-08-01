@@ -10,8 +10,8 @@ in your HTML. It exposes the `dv` global.
 ```js
 function validate(username) {
     return dv.combine(username, [
-        dv.check(username.length >= 6, 'length'),
-        dv.check(/^[a-z]+$/.test(username), 'symbols'),
+        dv.check(v => v.length >= 6, 'length'),
+        dv.check(v => /^[a-z]+$/.test(v), 'symbols'),
     ]);
 }
 

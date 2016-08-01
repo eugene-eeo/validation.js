@@ -48,23 +48,21 @@ Methods and attributes of both `ok` and `fail` objects:
 
 ## Convenience functions
 
-### `first(value, fn)`
+### `first(value, xs)`
 
 Arguments:
 
  - `value`: can be anything.
- - `fn`: function that accepts two values, a checking function and
- the same `value` passed to `first`.
+ - `xs`: an array of functions that return either `fail` or `ok`.
 
 Fails fast on the first invalidation. Example:
 
 ```js
-dv.first(-1, function(check, d) {
-    check(d > 0, 'must be greater than zero!');
-    // not executed
-    check(d < 5, 'must be lesser than 5!');
-})
-// => fail('must be greater than zero!')
+dv.first(-1, [
+    v => fail('smaller than 0'),
+    v => ok(v+1), // not executed
+]);
+// => fail('smaller than 0')
 ```
 
 
@@ -87,6 +85,14 @@ dv.combine(1, [
 // => fail.of(['err1', 'err2'])
 ```
 
-### `check(v, message)`
+### `check(fn, message)`
 
-Returns `ok(v)` if `v` is truthy, else returns `fail(message)`.
+Convenience function for turning `fn`, a function that accepts any
+value and returns a boolean into a function that returns `ok(value)`
+or `fail(message)`. Example:
+
+```js
+var v = check(v => v.length > 0, 'err');
+v('abc') // => ok('abc')
+v('')    // => fail('err')
+```
