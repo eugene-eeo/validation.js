@@ -41,15 +41,14 @@ var dv = (function() {
 
   function check(fn, err) {
     return function(v) {
-      return fn(v) ? ok(v) : fail(err);
+      return fn.apply(this, arguments) ? ok(v) : fail(err);
     };
   }
 
-  function first(datum, xs) {
-    var u = ok(datum);
+  function first(v, xs) {
+    var u = ok(v);
     for (var i = 0; i < xs.length; i++) {
-      var fn = xs[i];
-      u = u.then(fn);
+      u = u.then(xs[i]);
       if (!u.isOk) break;
     }
     return u;

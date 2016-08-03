@@ -19,3 +19,11 @@ test('check falsy', function(t) {
   t.deepEqual(rv, fail('err'));
   t.end();
 });
+
+
+test('check arguments', function(t) {
+  var rv = check((a, b) => a === b, 'err')(1, 1);
+
+  t.deepEqual(rv, ok(1));
+  t.end();
+});
