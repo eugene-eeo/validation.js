@@ -75,12 +75,11 @@ Methods and attributes of both `ok` and `fail` objects:
 
 ### `first(value, xs)`
 
-Arguments:
-
  - `value`: can be anything.
  - `xs`: an array of functions that return either `fail` or `ok`.
 
-Fails fast on the first invalidation. Example:
+Fails fast on the first invalidation. On successful validation, this
+returns `ok(value)`. Example:
 
 ```js
 dv.first(-1, [
@@ -88,12 +87,16 @@ dv.first(-1, [
     v => ok(v+1), // not executed
 ]);
 // => fail('smaller than 0')
+
+dv.first(-1, [
+    v => ok(v+1),
+    v => fail('smaller than 0'),
+]);
+// => ok(0)
 ```
 
 
 ### `combine(value, xs)`
-
-Arguments:
 
  - `value`: can be anything.
  - `xs`: array of `ok` or `fail` objects.
